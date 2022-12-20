@@ -137,6 +137,7 @@
    outline: 0;
    border: 0;
    color: #fff;
+   cursor: pointer;
   }
 
   .hide {

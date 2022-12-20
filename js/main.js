@@ -1,4 +1,5 @@
 const shop = document.getElementById('shop');
+const categoriesContainer = document.getElementById('categories');
 
 let basket = JSON.parse(localStorage.getItem("data")) || [];
 
@@ -9,6 +10,7 @@ const generateShop = () => {
     //
     // Använd denna markup för varje produktkort - den korresponderar mot CSS:en
     //
+    const categories = new Set;
 
     Object.values(shopData).forEach(({
         id, 
@@ -20,12 +22,12 @@ const generateShop = () => {
         rating,
     }) => { 
 
-        const [_, quantity] = basket.find(item => item[0] == id) || [0, 0];
+        const [_, quantity] = basket.find(item => item[0] == id) || [undefined, 0];
 
         const descriptionShortened = description.slice(0, 30) + '...';
 
         const productCard =
-        `<div id=product-id-${id} class="item">
+        `<div id=product-id-${id} class="item" data-cat="${category}">
             <img width="220" src=${image} alt=""> 
             <div class="details">
                 <h3>${title}</h3>
@@ -42,13 +44,27 @@ const generateShop = () => {
         </div>`;
 
         shop.insertAdjacentHTML('beforeend', productCard)
+
+        categories.add(category);
     });
 
     updateBasketQuantity();
 
-}
+    //generate categories
+    categories.forEach(item => {
+        categoriesContainer.insertAdjacentHTML('beforeend', 
+        `<button class="btnCategory">${item}</button>`
+        );
+    });
 
+    categoriesContainer.addEventListener('click', function(e) {
+        filterCategory(e.target.textContent);
+    })
+
+}
 generateShop()
+
+const allProductElements = document.querySelectorAll('.item') 
 
 const increment = (id) => {
     const [
@@ -75,4 +91,21 @@ const decrement = (id) => {
     setBasketLocalStorage();
 
     updateCardQuantity(productId, quantity);
+}
+
+const filterCategory = function (category) {
+    if (category == 'All categories') {
+        allProductElements.forEach(item => {
+            item.classList.remove('hide');
+        });    
+        return;
+    }
+
+    allProductElements.forEach(item => {
+        if (item.dataset.cat != category) {
+            item.classList.add('hide');
+        } else {
+            item.classList.remove('hide');
+        }
+    });
 }
