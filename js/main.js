@@ -80,7 +80,6 @@ const increment = (id) => {
 }
 
 const decrement = (id) => {
-    console.log(id)
     const [
         productId, 
         quantity
