@@ -3,11 +3,11 @@
 Utförd av Hampus Dufberg Töttrup
 
 https://decimaer.github.io/Uppgift_Shoppingsida/index.html
-  
-  
-  
-  
-  
+.  
+.  
+.  
+.  
+.  
 ## Uppgiften
 Denna uppgift prövar färdigheter på att använda arraymetoder, objekt och funktioner i ett sammanhang där du ska utveckla funktionalitet för en shoppingsida. Du ska utgå utifrån befintlig produktdata i startkoden samt spara kundvagnsdata i LocalStorage
 
