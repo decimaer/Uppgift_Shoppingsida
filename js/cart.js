@@ -1,4 +1,5 @@
 let shoppingCart = document.getElementById("shopping-cart")
+const btnClearCart = document.getElementById('clearCartButton');
 
 let basket = JSON.parse(localStorage.getItem("data")) || []
 
@@ -104,3 +105,23 @@ const removeItem = function (id) {
 
     totalBasketPrice();
 }
+
+btnClearCart.addEventListener('click', function() {
+    if (basket.length == 0) return;
+
+    shoppingCart.innerHTML = 'Shopping cart is empty!';
+    basket = [];
+
+    updateBasketQuantity();
+
+    setBasketLocalStorage();
+
+    totalBasketPrice();
+});
+
+const init = function () {
+    if (basket.length == 0) {
+        shoppingCart.innerHTML = 'Shopping cart is empty!';
+    }
+}
+init();

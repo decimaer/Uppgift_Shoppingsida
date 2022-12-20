@@ -30,8 +30,6 @@ const totalBasketPrice = function() {
     const totalBill = 
         `<h2>Total Bill: ${formatPrice.format(sum)}</h2>`
 
-    totalBasketPriceLabel.innerHTML = '';
-
     totalBasketPriceLabel.innerHTML = totalBill;
     
 }
@@ -42,7 +40,7 @@ const updateCardSum = function (productId, quantity) {
 
     const sum = quantity * product.price;
 
-    priceSumLabel.innerHTML = formatPrice.format(sum);
+    priceSumLabel.textContent = formatPrice.format(sum);
 }
 
 const setBasketLocalStorage = function() {
