@@ -7,11 +7,7 @@ let basket = JSON.parse(localStorage.getItem("data")) || [];
 
 const updateCardQuantity = function (id, index, quantity) {
     const cartQuantityLabel = document.querySelector(`#quantity-${id}`);
-    console.log('id', id, 'index', index)
 
-    //const totalQuantity = basket[index][1];
-
-    console.log(quantity)
     cartQuantityLabel.textContent = quantity;
 }
 
@@ -42,8 +38,6 @@ const generateShop = () => {
     }) => { 
 
         const [quantity] = basket.find(item => item[0] == id) || [0];
-
-        console.log(quantity)
 
         const descriptionShortened = description.slice(0, 30) + '...';
 
@@ -85,11 +79,9 @@ const increment = (id) => {
 
     basket[index][1] += 1;
     quantity = basket[index][1];
-    // console.log(basket[index][1])
-    // Update cart number
+
     updateCardQuantity(id, index, quantity);
 
-    // Update card number
     updateBasketQuantity();
 
     setBasketLocalStorage();
@@ -109,11 +101,8 @@ const decrement = (id) => {
         quantity = basket[index][1];
     }
 
-     console.log(index)
-    // Update cart number
     updateCardQuantity(id, index, quantity);
 
-    // Update card number
     updateBasketQuantity();
 
     setBasketLocalStorage();
