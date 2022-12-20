@@ -5,7 +5,7 @@ const totalBasketPriceLabel = document.querySelector('.label');
 const formatPrice = new Intl.NumberFormat(navigator.language, { style: 'currency', currency: 'USD' });
 
 
-const updateCardQuantity = function (id, index, quantity) {
+const updateCardQuantity = function (id, quantity) {
     const cardQuantityLabel = document.querySelector(`#quantity-${id}`);
 
     cardQuantityLabel.textContent = quantity;
@@ -13,25 +13,43 @@ const updateCardQuantity = function (id, index, quantity) {
 
 const updateBasketQuantity = function () {
     const totalQuantity = basket.reduce((acc, cur) => acc + cur[1], 0);
-    
+
     basketQuantityLabel.textContent = totalQuantity;
 }
 
 const totalBasketPrice = function() {
 
+    const sum = shopData.reduce((acc, cur) => {
+        index = basket.findIndex(item => item[0] == cur.id)
 
-    basket.reduce((acc, cur) => acc + cur,0)
-    html = 
-        `<h2>>Total Bill: ${formatPrice.format(sum)}</h2>`
+        if (index == -1) return acc;
+
+        return acc + cur.price * basket[index][1];
+    },0)
+
+    const totalBill = 
+        `<h2>Total Bill: ${formatPrice.format(sum)}</h2>`
+
+    totalBasketPriceLabel.innerHTML = '';
+
+    totalBasketPriceLabel.innerHTML = totalBill;
+    
+}
+
+const updateCardSum = function (productId, quantity) {
+    const priceSumLabel = document.getElementById(`productSum-${productId}`);
+    const product = shopData.find(item => item.id == productId)
+
+    const sum = quantity * product.price;
+
+    priceSumLabel.innerHTML = formatPrice.format(sum);
 }
 
 const setBasketLocalStorage = function() {
     localStorage.setItem('data', JSON.stringify(basket));
 }
 
-
-
-const increment = (id) => {
+const handleIncrement = (id) => {
     // Om användaren klickar på + på produkten 
     let quantity = 0;
     let index = basket.findIndex(item => item[0] == id);
@@ -44,19 +62,15 @@ const increment = (id) => {
     basket[index][1] += 1;
     quantity = basket[index][1];
 
-    updateCardQuantity(id, index, quantity);
-
-    updateBasketQuantity();
-
-    setBasketLocalStorage();
+    return [id, quantity]
 }
 
-const decrement = (id) => {
+const handleDecrement = (id) => {
     // Om användaren klickar på - på produkten 
     let quantity = 0;
     const index = basket.findIndex(item => item[0] == id);
 
-    if (index == -1) return;
+    if (index == -1) return [id, 0];
 
     if (basket[index][1] == 1) {
         basket.splice(index, 1);
@@ -65,10 +79,6 @@ const decrement = (id) => {
         quantity = basket[index][1];
     }
 
-    updateCardQuantity(id, index, quantity);
-
-    updateBasketQuantity();
-
-    setBasketLocalStorage();
+    return [id, quantity]
 
 }

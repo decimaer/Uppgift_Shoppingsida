@@ -27,7 +27,7 @@ const generateCartItems = () => {
         } = shopData.find(item => item.id == productId);
 
         productCard =
-        `<div class="cart-item">
+        `<div id=cart-item-${id} class="cart-item">
         <img width="100" src=${image} alt="" />
         <div class="details">
             <div class="title-price-x">
@@ -44,15 +44,63 @@ const generateCartItems = () => {
                 <i onclick="increment(${id})" class="bi bi-plus-lg"></i>
             </div>
             </div>
-            <h3> ${formatPrice.format(quantity * price)}</h3>
+            <h3 id="productSum-${id}"> ${formatPrice.format(quantity * price)}</h3>
         </div>
         </div>`;
 
         shoppingCart.insertAdjacentHTML('beforeend', productCard)
-    })
+    });
     
     updateBasketQuantity();
+
+    totalBasketPrice();
  
 }
 
 generateCartItems();
+
+const increment = (id) => {
+    const [
+        productId, 
+        quantity
+    ] = handleIncrement(id);
+
+    updateBasketQuantity();
+
+    setBasketLocalStorage();
+
+    updateCardQuantity(productId, quantity);
+
+    updateCardSum(productId, quantity);
+
+    totalBasketPrice();
+}
+
+const decrement = (id) => {
+    const [
+        productId, 
+        quantity
+    ] = handleDecrement(id);
+
+    updateBasketQuantity();
+
+    setBasketLocalStorage();
+
+    updateCardQuantity(productId, quantity);
+
+    updateCardSum(productId, quantity);
+
+    totalBasketPrice();
+}
+
+const removeItem = function (id) {
+    basket.splice(basket.findIndex(item => item[0] == id), 1);
+
+    document.getElementById(`cart-item-${id}`).remove()
+
+    updateBasketQuantity();
+
+    setBasketLocalStorage();
+
+    totalBasketPrice();
+}

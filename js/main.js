@@ -50,3 +50,29 @@ const generateShop = () => {
 
 generateShop()
 
+const increment = (id) => {
+    const [
+        productId, 
+        quantity
+    ] = handleIncrement(id);
+
+    updateBasketQuantity();
+
+    setBasketLocalStorage();
+
+    updateCardQuantity(productId, quantity);
+}
+
+const decrement = (id) => {
+    console.log(id)
+    const [
+        productId, 
+        quantity
+    ] = handleDecrement(id);
+
+    updateBasketQuantity();
+
+    setBasketLocalStorage();
+
+    updateCardQuantity(productId, quantity);
+}
