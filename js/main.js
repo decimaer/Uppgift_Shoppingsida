@@ -25,7 +25,7 @@ const generateShop = () => {
     //
     // Använd denna markup för varje produktkort - den korresponderar mot CSS:en
     //
-    const formatUSD = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+    const formatPrice = new Intl.NumberFormat(navigator.language, { style: 'currency', currency: 'USD' });
 
     Object.values(shopData).forEach(({
         id, 
@@ -37,7 +37,7 @@ const generateShop = () => {
         rating,
     }) => { 
 
-        const [quantity] = basket.find(item => item[0] == id) || [0];
+        const [_, quantity] = basket.find(item => item[0] == id) || [0, 0];
 
         const descriptionShortened = description.slice(0, 30) + '...';
 
@@ -48,7 +48,7 @@ const generateShop = () => {
                 <h3>${title}</h3>
                 <p>${descriptionShortened}</p>
                 <div class="price-quantity">
-                <h2>${formatUSD.format(price)}</h2>
+                <h2>${formatPrice.format(price)}</h2>
                 <div class="buttons">
                     <i onclick="decrement(${id})" class="bi bi-dash-lg"></i>
                     <div id=quantity-${id} class="quantity">${quantity}</div>
