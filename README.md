@@ -1,6 +1,14 @@
 # Uppgift JS Shoppingsida 🛒
 
+Utförd av Hampus Dufberg Töttrup
 
+
+
+
+
+
+
+## Uppgiften
 Denna uppgift prövar färdigheter på att använda arraymetoder, objekt och funktioner i ett sammanhang där du ska utveckla funktionalitet för en shoppingsida. Du ska utgå utifrån befintlig produktdata i startkoden samt spara kundvagnsdata i LocalStorage
 
 Du får endast utveckla sidan med ren JavaScript (d.v.s Vanilla, inget ramverk/bibliotek)
