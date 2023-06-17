@@ -65,7 +65,7 @@ const handleIncrement = (id) => {
         'event_category': 'Product interactions',
         'event_label': 'adding product to cart',
         'value': 1
-        }
+        })
 
     return [id, quantity]
 }
