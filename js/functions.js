@@ -60,6 +60,13 @@ const handleIncrement = (id) => {
     basket[index][1] += 1;
     quantity = basket[index][1];
 
+    //gtag 
+    gtag('event', 'button_click', {
+        'event_category': 'Product interactions',
+        'event_label': 'adding product to cart',
+        'value': 1
+        }
+
     return [id, quantity]
 }
 
